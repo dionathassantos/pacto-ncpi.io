@@ -23,13 +23,9 @@ function loadAuthData() {
 }
 
 // Check if user is authenticated
-function checkAuth() {
+function isAuthenticated() {
     const user = localStorage.getItem('user');
-    if (!user) {
-        window.location.href = './login.html';
-        return false;
-    }
-    return true;
+    return user !== null;
 }
 
 // Get current user
@@ -74,6 +70,7 @@ function login(username, password) {
 // Logout user
 function logout() {
     localStorage.removeItem('user');
+    localStorage.removeItem('rememberedUsername');
     window.location.href = './login.html';
 }
 
