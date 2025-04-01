@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - NCPI Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="NCPI Logo" class="logo">
+            <h1>NCPI Dashboard</h1>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-home"></i>
+                        <span>Painel da Estratégia</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="teoria-mudanca.html">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>Teoria da Mudança NCPI</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="governanca.html">
+                        <i class="fas fa-users"></i>
+                        <span>Governança</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="monitoramento.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Sistemática de Monitoramento e Avaliação</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios.html">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Relatórios de Avaliação NCPI</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <img src="assets/avatar.png" alt="User Avatar" class="avatar">
+                <div class="user-info">
+                    <span class="user-name">Nome do Usuário</span>
+                    <span class="user-role">Função</span>
+                </div>
+            </div>
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </button>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <header class="header">
+            <button class="btn-toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Meu Perfil</h1>
+            <div class="header-actions">
+                <button class="btn-notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="assets/avatar.png" alt="User Avatar" class="avatar-large">
+                        <button class="btn-change-avatar">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h2>Nome do Usuário</h2>
+                        <p>Função na Organização</p>
+                    </div>
+                </div>
+
+                <div class="profile-content">
+                    <div class="profile-section">
+                        <h3>Informações Pessoais</h3>
+                        <form id="profileForm" class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">
+                                        <i class="fas fa-user"></i>
+                                        Nome Completo
+                                    </label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">
+                                        <i class="fas fa-envelope"></i>
+                                        Email
+                                    </label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="organization">
+                                        <i class="fas fa-building"></i>
+                                        Organização
+                                    </label>
+                                    <input type="text" id="organization" name="organization" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="role">
+                                        <i class="fas fa-briefcase"></i>
+                                        Função
+                                    </label>
+                                    <input type="text" id="role" name="role" required>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Salvar Alterações
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="profile-section">
+                        <h3>Alterar Senha</h3>
+                        <form id="passwordForm" class="profile-form">
+                            <div class="form-group">
+                                <label for="currentPassword">
+                                    <i class="fas fa-lock"></i>
+                                    Senha Atual
+                                </label>
+                                <input type="password" id="currentPassword" name="currentPassword" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPassword">
+                                    <i class="fas fa-key"></i>
+                                    Nova Senha
+                                </label>
+                                <input type="password" id="newPassword" name="newPassword" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword">
+                                    <i class="fas fa-key"></i>
+                                    Confirmar Nova Senha
+                                </label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-key"></i>
+                                    Alterar Senha
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="profile-section">
+                        <h3>Preferências</h3>
+                        <form id="preferencesForm" class="profile-form">
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="emailNotifications" checked>
+                                    <span>Receber notificações por email</span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="darkMode">
+                                    <span>Modo escuro</span>
+                                </label>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Salvar Preferências
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="auth.js"></script>
+    <script>
+        // Check authentication
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!checkAuth()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Load user data
+            const user = getCurrentUser();
+            if (user) {
+                document.getElementById('name').value = user.name;
+                document.getElementById('email').value = user.email;
+                document.getElementById('organization').value = user.organization;
+                document.getElementById('role').value = user.role;
+                document.querySelector('.user-name').textContent = user.name;
+                document.querySelector('.user-role').textContent = user.role;
+            }
+        });
+
+        // Handle profile form submission
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const userData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                organization: document.getElementById('organization').value,
+                role: document.getElementById('role').value
+            };
+
+            const result = updateProfile(userData);
+            
+            if (result.success) {
+                alert('Perfil atualizado com sucesso!');
+            } else {
+                alert(result.message);
+            }
+        });
+
+        // Handle password form submission
+        document.getElementById('passwordForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('As senhas não coincidem');
+                return;
+            }
+
+            const result = changePassword(currentPassword, newPassword);
+            
+            if (result.success) {
+                alert('Senha alterada com sucesso!');
+                e.target.reset();
+            } else {
+                alert(result.message);
+            }
+        });
+
+        // Handle preferences form submission
+        document.getElementById('preferencesForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const preferences = {
+                emailNotifications: document.querySelector('input[name="emailNotifications"]').checked,
+                darkMode: document.querySelector('input[name="darkMode"]').checked
+            };
+
+            localStorage.setItem('userPreferences', JSON.stringify(preferences));
+            alert('Preferências salvas com sucesso!');
+        });
+
+        // Load user preferences
+        document.addEventListener('DOMContentLoaded', () => {
+            const preferences = JSON.parse(localStorage.getItem('userPreferences') || '{}');
+            document.querySelector('input[name="emailNotifications"]').checked = preferences.emailNotifications ?? true;
+            document.querySelector('input[name="darkMode"]').checked = preferences.darkMode ?? false;
+        });
+    </script>
+</body>
+</html>
