@@ -17,61 +17,89 @@ const authData = {
 
 // Load authentication data
 function loadAuthData() {
-    const data = JSON.parse(localStorage.getItem('authData')) || authData;
-    localStorage.setItem('authData', JSON.stringify(data));
-    return data;
+    try {
+        const data = JSON.parse(localStorage.getItem('authData')) || authData;
+        localStorage.setItem('authData', JSON.stringify(data));
+        return data;
+    } catch (error) {
+        console.error('Error loading auth data:', error);
+        return authData;
+    }
 }
 
 // Check if user is authenticated
 function isAuthenticated() {
-    const user = localStorage.getItem('user');
-    return user !== null;
+    try {
+        const user = localStorage.getItem('user');
+        return user !== null && JSON.parse(user);
+    } catch (error) {
+        console.error('Error checking authentication:', error);
+        return false;
+    }
 }
 
 // Get current user
 function getCurrentUser() {
-    const userStr = localStorage.getItem('user');
-    if (!userStr) return null;
-    return JSON.parse(userStr);
+    try {
+        const userStr = localStorage.getItem('user');
+        if (!userStr) return null;
+        return JSON.parse(userStr);
+    } catch (error) {
+        console.error('Error getting current user:', error);
+        return null;
+    }
 }
 
 // Login user
 function login(username, password) {
-    const data = loadAuthData();
-    const user = data.users.find(u => u.username === username && u.password === password);
-    
-    if (!user) {
+    try {
+        const data = loadAuthData();
+        const user = data.users.find(u => u.username === username && u.password === password);
+        
+        if (!user) {
+            return {
+                success: false,
+                message: "Usuário ou senha inválidos"
+            };
+        }
+
+        const userData = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            role: user.role,
+            name: user.name,
+            organization: user.organization,
+            timestamp: new Date().getTime()
+        };
+
+        // Update user's last login
+        user.lastLogin = new Date().toISOString();
+        localStorage.setItem('authData', JSON.stringify(data));
+        localStorage.setItem('user', JSON.stringify(userData));
+
+        return {
+            success: true,
+            user: userData
+        };
+    } catch (error) {
+        console.error('Error during login:', error);
         return {
             success: false,
-            message: "Usuário ou senha inválidos"
+            message: "Erro ao fazer login"
         };
     }
-
-    const userData = {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-        name: user.name,
-        organization: user.organization
-    };
-
-    // Update user's last login
-    user.lastLogin = new Date().toISOString();
-    localStorage.setItem('authData', JSON.stringify(data));
-    localStorage.setItem('user', JSON.stringify(userData));
-
-    return {
-        success: true,
-        user: userData
-    };
 }
 
 // Logout user
 function logout() {
-    localStorage.removeItem('user');
-    localStorage.removeItem('rememberedUsername');
-    window.location.href = './login.html';
+    try {
+        localStorage.removeItem('user');
+        localStorage.removeItem('rememberedUsername');
+        window.location.replace('./login.html');
+    } catch (error) {
+        console.error('Error during logout:', error);
+    }
 }
 
 // Get current session
