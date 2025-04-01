@@ -5,7 +5,7 @@ const authData = {
             id: 1,
             username: "admin",
             email: "admin@example.com",
-            password: "admin123", // In production, use proper password hashing
+            password: "123", // In production, use proper password hashing
             role: "admin",
             name: "Administrador",
             organization: "NCPI",
