@@ -6,13 +6,6 @@
     <title>Login - NCPI Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="auth.js"></script>
-    <script>
-        // Se já estiver logado, redireciona para o dashboard
-        if (localStorage.getItem('user')) {
-            window.location.href = './index.html';
-        }
-    </script>
 </head>
 <body class="login-page">
     <div class="login-wrapper">
@@ -173,7 +166,19 @@
         </div>
     </div>
 
+    <script src="auth.js"></script>
     <script>
+        // Verificar autenticação após o carregamento da página
+        function checkAuth() {
+            if (isAuthenticated()) {
+                window.location.replace('./index.html');
+                return;
+            }
+        }
+
+        // Verificar autenticação imediatamente
+        checkAuth();
+
         // Toggle password visibility
         function togglePasswordVisibility() {
             const input = document.getElementById('password');
@@ -216,8 +221,7 @@
                 } else {
                     localStorage.removeItem('rememberedUsername');
                 }
-                localStorage.setItem('user', JSON.stringify(result.user));
-                window.location.href = './index.html';
+                window.location.replace('./index.html');
             } else {
                 showError('Usuário ou senha inválidos');
             }
