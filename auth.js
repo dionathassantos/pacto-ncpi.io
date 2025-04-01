@@ -1,20 +1,42 @@
-// ... existing code ...
+// Authentication Data
+const authData = {
+    users: [
+        {
+            id: 1,
+            username: "admin",
+            email: "admin@example.com",
+            password: "admin123", // In production, use proper password hashing
+            role: "admin",
+            name: "Administrador",
+            organization: "NCPI",
+            lastLogin: "2024-03-15T10:00:00Z"
+        }
+    ],
+    sessions: []
+};
+
+// Load authentication data
+function loadAuthData() {
+    const data = JSON.parse(localStorage.getItem('authData')) || authData;
+    localStorage.setItem('authData', JSON.stringify(data));
+    return data;
+}
+
 // Check if user is authenticated
 function checkAuth() {
-    const session = getCurrentSession();
     const user = localStorage.getItem('user');
-    if (!session && !user) {
+    if (!user) {
         window.location.href = './login.html';
         return false;
     }
     return true;
 }
 
-// Get current session
-function getCurrentSession() {
-    const data = loadAuthData();
-    const sessionId = localStorage.getItem('sessionId');
-    return data.sessions.find(s => s.id === sessionId);
+// Get current user
+function getCurrentUser() {
+    const userStr = localStorage.getItem('user');
+    if (!userStr) return null;
+    return JSON.parse(userStr);
 }
 
 // Login user
@@ -29,23 +51,6 @@ function login(username, password) {
         };
     }
 
-    // Create new session
-    const session = {
-        id: generateSessionId(),
-        userId: user.id,
-        createdAt: new Date().toISOString(),
-        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24 hours
-    };
-
-    // Add session to data
-    data.sessions.push(session);
-    localStorage.setItem('authData', JSON.stringify(data));
-    localStorage.setItem('sessionId', session.id);
-
-    // Update user's last login
-    user.lastLogin = new Date().toISOString();
-    localStorage.setItem('authData', JSON.stringify(data));
-
     const userData = {
         id: user.id,
         username: user.username,
@@ -55,6 +60,9 @@ function login(username, password) {
         organization: user.organization
     };
 
+    // Update user's last login
+    user.lastLogin = new Date().toISOString();
+    localStorage.setItem('authData', JSON.stringify(data));
     localStorage.setItem('user', JSON.stringify(userData));
 
     return {
@@ -65,13 +73,6 @@ function login(username, password) {
 
 // Logout user
 function logout() {
-    const session = getCurrentSession();
-    if (session) {
-        const data = loadAuthData();
-        data.sessions = data.sessions.filter(s => s.id !== session.id);
-        localStorage.setItem('authData', JSON.stringify(data));
-    }
-    localStorage.removeItem('sessionId');
     localStorage.removeItem('user');
     window.location.href = './login.html';
 }
