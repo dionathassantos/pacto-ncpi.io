@@ -9,8 +9,8 @@
     <script src="auth.js"></script>
     <script>
         // Verificar autenticação
-        if (!localStorage.getItem('user')) {
-            window.location.href = './login.html';
+        if (!isAuthenticated()) {
+            window.location.replace('./login.html');
         }
     </script>
 </head>
