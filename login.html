@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCPI - Núcleo Ciência Pela Infância</title>
+    <title>Login - NCPI Dashboard</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="auth.js"></script>
     <script>
-        // Verificar autenticação
-        if (!localStorage.getItem('user')) {
-            window.location.href = './login.html';
+        // Se já estiver logado, redireciona para o dashboard
+        if (localStorage.getItem('user')) {
+            window.location.href = './index.html';
         }
     </script>
 </head>
 // ... existing code ...
+    
