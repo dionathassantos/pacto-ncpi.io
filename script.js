@@ -937,10 +937,50 @@ async function saveMeta(button) {
             editButton.dataset.meta = JSON.stringify(updatedMeta);
         }
 
-        // Recalculate metrics and update the dashboard
-        const metrics = calculateMetrics(data);
-        updateMetricCards(metrics);
-        updateStatusBars(metrics.metasPorStatus);
+        // Atualizar apenas as métricas do card específico
+        const card = row.closest('.initiative-card');
+        if (card) {
+            const progressSection = card.querySelector('.progress-section');
+            const progressValue = progressSection.querySelector('.progress-value');
+            const progressBar = progressSection.querySelector('.progress');
+            
+            // Recalcular o progresso do card
+            const metas = card.querySelectorAll('tr');
+            let totalMetas = 0;
+            let metasConcluidas = 0;
+            let metasSatisfatorias = 0;
+            
+            metas.forEach(metaRow => {
+                const statusDot = metaRow.querySelector('.status-dot');
+                const status = statusDot.title;
+                totalMetas++;
+                
+                if (status === "Concluída") {
+                    metasConcluidas++;
+                } else if (status === "Satisfatório") {
+                    metasSatisfatorias++;
+                }
+            });
+            
+            const progressPercentage = totalMetas > 0 ? 
+                ((metasConcluidas * 100) + (metasSatisfatorias * 70)) / (totalMetas * 100) * 100 : 0;
+            
+            progressValue.textContent = `${progressPercentage.toFixed(0)}%`;
+            progressBar.style.width = `${progressPercentage}%`;
+            
+            // Atualizar a cor da barra de progresso
+            let progressColor = 'var(--gray)';
+            if (progressPercentage >= 75) {
+                progressColor = 'var(--green)';
+            } else if (progressPercentage >= 50) {
+                progressColor = 'var(--blue)';
+            } else if (progressPercentage >= 25) {
+                progressColor = 'var(--yellow)';
+            } else if (progressPercentage > 0) {
+                progressColor = 'var(--red)';
+            }
+            progressBar.style.background = progressColor;
+        }
         
         closeModal(button);
     } catch (error) {
