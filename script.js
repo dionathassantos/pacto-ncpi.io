@@ -340,7 +340,6 @@ function closeModals() {
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', async () => {
-    setupNavigation();
     await initDashboard(); // Inicializa o dashboard com os dados do JSON
 });
 
