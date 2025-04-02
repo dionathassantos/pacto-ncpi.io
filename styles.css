@@ -855,213 +855,37 @@ body {
 
 /* Login Page Styles */
 .login-page {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.login-wrapper {
-    width: 100%;
-    max-width: 400px;
-    margin: 20px;
-}
-
-.login-container {
-    background: var(--white);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    padding: 32px;
-}
-
-.login-header {
-    text-align: center;
-    margin-bottom: 32px;
-}
-
-.login-header .logo {
-    width: 120px;
-    height: auto;
-    margin-bottom: 16px;
-}
-
-.login-header h1 {
-    font-size: 24px;
-    color: var(--text-color);
-    margin: 0 0 8px;
-}
-
-.login-header p {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin: 0;
-}
-
-.login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.input-group {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.input-icon {
-    position: absolute;
-    left: 12px;
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px 40px 12px 40px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.input-group input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
-    outline: none;
-}
-
-.toggle-password {
-    position: absolute;
-    right: 12px;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-}
-
-.toggle-password:hover {
-    color: var(--text-color);
-}
-
-.form-options {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: -8px 0;
-}
-
-.remember-me {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
-
-.remember-me input[type="checkbox"] {
     display: none;
 }
-
-.checkmark {
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    display: inline-block;
-    position: relative;
-    transition: all 0.3s ease;
+.login-wrapper {
+    display: none;
 }
-
-.remember-me input[type="checkbox"]:checked + .checkmark {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+.login-container {
+    display: none;
 }
-
-.remember-me input[type="checkbox"]:checked + .checkmark::after {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+.login-header {
+    display: none;
 }
-
-.label-text {
-    font-size: 14px;
-    color: var(--text-secondary);
+.login-header .logo {
+    display: none;
 }
-
-.forgot-password {
-    font-size: 14px;
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: color 0.3s ease;
+.login-header h1 {
+    display: none;
 }
-
-.forgot-password:hover {
-    color: #1557b0;
-    text-decoration: underline;
+.login-header p {
+    display: none;
 }
-
+.login-form {
+    display: none;
+}
 .btn-login {
-    background: var(--primary-color);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.3s ease;
+    display: none;
 }
-
 .btn-login:hover {
-    background: #1557b0;
-    transform: translateY(-1px);
+    display: none;
 }
-
 .btn-login:active {
-    transform: translateY(0);
-}
-
-.form-footer {
-    text-align: center;
-    margin-top: 8px;
-}
-
-.form-footer p {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin: 0;
-}
-
-.form-footer a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.form-footer a:hover {
-    text-decoration: underline;
+    display: none;
 }
 
 .error-message,
