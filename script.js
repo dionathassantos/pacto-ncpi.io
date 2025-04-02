@@ -73,14 +73,6 @@ const initialData = {
     }
 };
 
-// Authentication check
-function checkAuth() {
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-    if (!isAuthenticated) {
-        window.location.href = 'login.html';
-    }
-}
-
 // Load data from localStorage or initialize with default data
 function loadInitialData() {
     const data = localStorage.getItem('dashboardData');
@@ -348,7 +340,6 @@ function closeModals() {
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', async () => {
-    checkAuth();
     setupNavigation();
     await initDashboard(); // Inicializa o dashboard com os dados do JSON
 });
