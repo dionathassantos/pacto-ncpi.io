@@ -817,6 +817,11 @@ function editMeta(event, button) {
         </div>
     `;
     
+    // Adicionar o botão de edição ao modal para referência
+    const editButton = button.cloneNode(true);
+    modal.querySelector('.modal-body').appendChild(editButton);
+    editButton.style.display = 'none';
+    
     document.body.appendChild(modal);
     setTimeout(() => modal.classList.add('active'), 10);
 }
@@ -836,7 +841,7 @@ async function saveMeta(button) {
     const encaminhamento = modal.querySelector('#metaEncaminhamento').value;
     
     // Get the meta data from the edit button that opened the modal
-    const editButton = document.querySelector('.edit-button[data-meta]');
+    const editButton = modal.querySelector('.edit-button[data-meta]');
     const metaData = JSON.parse(editButton.dataset.meta);
     
     try {
