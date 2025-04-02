@@ -861,6 +861,7 @@ function closeModal(button) {
     setTimeout(() => modal.remove(), 300);
 }
 
+// Função para salvar meta
 async function saveMeta(button) {
     const modal = button.closest('.modal');
     const status = modal.querySelector('#metaStatus').value;
@@ -940,9 +941,6 @@ async function saveMeta(button) {
         const metrics = calculateMetrics(data);
         updateMetricCards(metrics);
         updateStatusBars(metrics.metasPorStatus);
-        
-        // Update the initiative cards to reflect the new status
-        renderInitiatives(data);
         
         closeModal(button);
     } catch (error) {
