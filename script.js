@@ -434,8 +434,19 @@ document.addEventListener('DOMContentLoaded', () => {
 // Função para carregar os dados do JSON
 async function loadData() {
     try {
+        // Primeiro tenta carregar do localStorage
+        const localData = localStorage.getItem('dashboardData');
+        if (localData) {
+            return JSON.parse(localData);
+        }
+        
+        // Se não houver dados no localStorage, carrega do arquivo JSON
         const response = await fetch('data_ncpi.json');
         const data = await response.json();
+        
+        // Salva os dados no localStorage para futuras alterações
+        localStorage.setItem('dashboardData', JSON.stringify(data));
+        
         return data;
     } catch (error) {
         console.error('Erro ao carregar os dados:', error);
@@ -829,9 +840,14 @@ async function saveMeta(button) {
     const metaData = JSON.parse(editButton.dataset.meta);
     
     try {
-        // Load current data
-        const response = await fetch('data_ncpi.json');
-        const data = await response.json();
+        // Load current data from localStorage
+        let data = JSON.parse(localStorage.getItem('dashboardData'));
+        
+        // If no data in localStorage, load from JSON file
+        if (!data) {
+            const response = await fetch('data_ncpi.json');
+            data = await response.json();
+        }
         
         // Find and update the specific meta in the data structure
         data.Iniciativas.forEach(iniciativa => {
@@ -856,20 +872,7 @@ async function saveMeta(button) {
             }
         });
 
-        // Save to server
-        const saveResponse = await fetch('save_data.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-
-        if (!saveResponse.ok) {
-            throw new Error('Erro ao salvar no servidor');
-        }
-
-        // Save to localStorage as backup
+        // Save to localStorage
         localStorage.setItem('dashboardData', JSON.stringify(data));
         
         // Update the table row
