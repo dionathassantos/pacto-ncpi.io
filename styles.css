@@ -297,27 +297,27 @@ body {
 
 .status-label .legend-icon.green {
     background-color: var(--green);
-    background-image: url('check-mark.svg');
+    background-image: url('/Dashboar%20ncpi/check-mark.svg');
 }
 
 .status-label .legend-icon.blue {
     background-color: var(--blue);
-    background-image: url('thumbs-up.svg');
+    background-image: url('/Dashboar%20ncpi/thumbs-up.svg');
 }
 
 .status-label .legend-icon.yellow {
     background-color: var(--yellow);
-    background-image: url('exclamation-triangle.svg');
+    background-image: url('/Dashboar%20ncpi/exclamation-triangle.svg');
 }
 
 .status-label .legend-icon.red {
     background-color: var(--red);
-    background-image: url('Fire.svg');
+    background-image: url('/Dashboar%20ncpi/Fire.svg');
 }
 
 .status-label .legend-icon.gray {
     background-color: var(--gray);
-    background-image: url('clipboard.svg');
+    background-image: url('/Dashboar%20ncpi/clipboard.svg');
 }
 
 .status-tag {
@@ -346,7 +346,7 @@ body {
 }
 
 .status-tag.green .icon {
-    background-image: url('check-mark.svg');
+    background-image: url('/Dashboar%20ncpi/check-mark.svg');
 }
 
 .status-tag.blue {
@@ -354,7 +354,7 @@ body {
 }
 
 .status-tag.blue .icon {
-    background-image: url('thumbs-up.svg');
+    background-image: url('/Dashboar%20ncpi/thumbs-up.svg');
 }
 
 .status-tag.yellow {
@@ -363,7 +363,7 @@ body {
 }
 
 .status-tag.yellow .icon {
-    background-image: url('exclamation-triangle.svg');
+    background-image: url('/Dashboar%20ncpi/exclamation-triangle.svg');
     filter: none;
 }
 
@@ -372,7 +372,7 @@ body {
 }
 
 .status-tag.red .icon {
-    background-image: url('Fire.svg');
+    background-image: url('/Dashboar%20ncpi/Fire.svg');
 }
 
 .status-tag.gray {
@@ -380,7 +380,7 @@ body {
 }
 
 .status-tag.gray .icon {
-    background-image: url('clipboard.svg');
+    background-image: url('/Dashboar%20ncpi/clipboard.svg');
 }
 
 .status-tag .count {
@@ -415,23 +415,23 @@ body {
 }
 
 .progress.green::after {
-    background-image: url('check-mark.svg');
+    background-image: url('/Dashboar%20ncpi/check-mark.svg');
 }
 
 .progress.blue::after {
-    background-image: url('thumbs-up.svg');
+    background-image: url('/Dashboar%20ncpi/thumbs-up.svg');
 }
 
 .progress.yellow::after {
-    background-image: url('exclamation-triangle.svg');
+    background-image: url('/Dashboar%20ncpi/exclamation-triangle.svg');
 }
 
 .progress.red::after {
-    background-image: url('Fire.svg');
+    background-image: url('/Dashboar%20ncpi/Fire.svg');
 }
 
 .progress.gray::after {
-    background-image: url('clipboard.svg');
+    background-image: url('/Dashboar%20ncpi/clipboard.svg');
 }
 
 /* Initiatives Section */
@@ -707,7 +707,7 @@ body {
 }
 
 .status-dot.green::after {
-    background-image: url('check-mark.svg');
+    background-image: url('/Dashboar%20ncpi/check-mark.svg');
 }
 
 .status-dot.blue {
@@ -715,7 +715,7 @@ body {
 }
 
 .status-dot.blue::after {
-    background-image: url('thumbs-up.svg');
+    background-image: url('/Dashboar%20ncpi/thumbs-up.svg');
 }
 
 .status-dot.yellow {
@@ -723,7 +723,7 @@ body {
 }
 
 .status-dot.yellow::after {
-    background-image: url('exclamation-triangle.svg');
+    background-image: url('/Dashboar%20ncpi/exclamation-triangle.svg');
 }
 
 .status-dot.red {
@@ -731,7 +731,7 @@ body {
 }
 
 .status-dot.red::after {
-    background-image: url('Fire.svg');
+    background-image: url('/Dashboar%20ncpi/Fire.svg');
 }
 
 .status-dot.gray {
@@ -739,7 +739,7 @@ body {
 }
 
 .status-dot.gray::after {
-    background-image: url('clipboard.svg');
+    background-image: url('/Dashboar%20ncpi/clipboard.svg');
 }
 
 /* Removing unused modal styles */
