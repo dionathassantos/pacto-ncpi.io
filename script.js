@@ -1,3 +1,19 @@
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBYcTwJLUA9YXfZsigyLGJy6WMsYKfdJXo",
+    authDomain: "ncpi-102ca.firebaseapp.com",
+    databaseURL: "https://ncpi-102ca-default-rtdb.firebaseio.com",
+    projectId: "ncpi-102ca",
+    storageBucket: "ncpi-102ca.firebasestorage.app",
+    messagingSenderId: "592471971260",
+    appId: "1:592471971260:web:acea66a4add39211d387b9",
+    measurementId: "G-KR1NKD77R7"
+};
+
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 // Initial data structure
 const initialData = {
     portaFora: {
@@ -431,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animateProgressBars();
 });
 
-// Função para carregar os dados do JSON
+// Função para carregar os dados do Firebase
 async function loadData() {
     try {
         // Primeiro tenta carregar do localStorage
@@ -440,14 +456,27 @@ async function loadData() {
             return JSON.parse(localData);
         }
         
-        // Se não houver dados no localStorage, carrega do arquivo JSON
+        // Se não houver dados no localStorage, carrega do Firebase
+        const snapshot = await database.ref('/dashboardData').once('value');
+        const data = snapshot.val();
+        
+        if (data) {
+            // Salva os dados no localStorage para cache
+            localStorage.setItem('dashboardData', JSON.stringify(data));
+            return data;
+        }
+        
+        // Se não houver dados no Firebase, carrega do arquivo JSON
         const response = await fetch('data_ncpi.json');
-        const data = await response.json();
+        const jsonData = await response.json();
         
-        // Salva os dados no localStorage para futuras alterações
-        localStorage.setItem('dashboardData', JSON.stringify(data));
+        // Salva os dados iniciais no Firebase
+        await database.ref('/dashboardData').set(jsonData);
         
-        return data;
+        // Salva os dados no localStorage para cache
+        localStorage.setItem('dashboardData', JSON.stringify(jsonData));
+        
+        return jsonData;
     } catch (error) {
         console.error('Erro ao carregar os dados:', error);
         return null;
@@ -845,14 +874,9 @@ async function saveMeta(button) {
     const metaData = JSON.parse(editButton.dataset.meta);
     
     try {
-        // Load current data from localStorage
-        let data = JSON.parse(localStorage.getItem('dashboardData'));
-        
-        // If no data in localStorage, load from JSON file
-        if (!data) {
-            const response = await fetch('data_ncpi.json');
-            data = await response.json();
-        }
+        // Load current data from Firebase
+        const snapshot = await database.ref('/dashboardData').once('value');
+        let data = snapshot.val();
         
         // Find and update the specific meta in the data structure
         let metaUpdated = false;
@@ -883,7 +907,10 @@ async function saveMeta(button) {
             throw new Error('Meta não encontrada para atualização');
         }
 
-        // Save to localStorage
+        // Save to Firebase
+        await database.ref('/dashboardData').set(data);
+        
+        // Save to localStorage as backup
         localStorage.setItem('dashboardData', JSON.stringify(data));
         
         // Update the table row
@@ -927,23 +954,16 @@ async function saveMeta(button) {
 // Inicialização
 async function initDashboard() {
     try {
-        // Primeiro tenta carregar do localStorage
-        let data = JSON.parse(localStorage.getItem('dashboardData'));
+        // Carrega os dados do Firebase
+        const data = await loadData();
         
-        // Se não houver dados no localStorage, carrega do arquivo JSON
-        if (!data) {
-            const response = await fetch('data_ncpi.json');
-            data = await response.json();
-            
-            // Salva os dados iniciais no localStorage
-            localStorage.setItem('dashboardData', JSON.stringify(data));
+        if (data) {
+            // Atualiza a interface com os dados
+            const metrics = calculateMetrics(data);
+            updateMetricCards(metrics);
+            updateStatusBars(metrics.metasPorStatus);
+            renderInitiatives(data);
         }
-        
-        // Atualiza a interface com os dados
-        const metrics = calculateMetrics(data);
-        updateMetricCards(metrics);
-        updateStatusBars(metrics.metasPorStatus);
-        renderInitiatives(data);
     } catch (error) {
         console.error('Erro ao inicializar o dashboard:', error);
         alert('Erro ao carregar os dados. Por favor, recarregue a página.');
@@ -952,7 +972,7 @@ async function initDashboard() {
 
 // Adiciona um evento para limpar o localStorage quando necessário
 document.addEventListener('DOMContentLoaded', () => {
-    // Descomente a linha abaixo para limpar o localStorage e recarregar os dados do JSON
+    // Descomente a linha abaixo para limpar o localStorage e recarregar os dados do Firebase
     // localStorage.removeItem('dashboardData');
     
     initDashboard();
