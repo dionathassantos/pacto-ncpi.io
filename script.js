@@ -830,7 +830,8 @@ async function saveMeta(button) {
     
     try {
         // Load current data
-        const data = await loadData();
+        const response = await fetch('data_ncpi.json');
+        const data = await response.json();
         
         // Find and update the specific meta in the data structure
         data.Iniciativas.forEach(iniciativa => {
@@ -855,7 +856,20 @@ async function saveMeta(button) {
             }
         });
 
-        // Save updated data back to localStorage to persist changes
+        // Save to server
+        const saveResponse = await fetch('save_data.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!saveResponse.ok) {
+            throw new Error('Erro ao salvar no servidor');
+        }
+
+        // Save to localStorage as backup
         localStorage.setItem('dashboardData', JSON.stringify(data));
         
         // Update the table row
