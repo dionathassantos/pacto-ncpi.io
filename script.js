@@ -850,6 +850,7 @@ async function saveMeta(button) {
         }
         
         // Find and update the specific meta in the data structure
+        let metaUpdated = false;
         data.Iniciativas.forEach(iniciativa => {
             if (iniciativa.Resultados) {
                 iniciativa.Resultados.forEach(resultado => {
@@ -865,12 +866,17 @@ async function saveMeta(button) {
                                 meta.Semestre = semestre;
                                 meta.OBSERVAÇÕES = observacoes;
                                 meta.ENCAMINHAMENTO = encaminhamento;
+                                metaUpdated = true;
                             }
                         });
                     }
                 });
             }
         });
+
+        if (!metaUpdated) {
+            throw new Error('Meta não encontrada para atualização');
+        }
 
         // Save to localStorage
         localStorage.setItem('dashboardData', JSON.stringify(data));
@@ -915,11 +921,34 @@ async function saveMeta(button) {
 
 // Inicialização
 async function initDashboard() {
-    const data = await loadData();
-    if (data) {
+    try {
+        // Primeiro tenta carregar do localStorage
+        let data = JSON.parse(localStorage.getItem('dashboardData'));
+        
+        // Se não houver dados no localStorage, carrega do arquivo JSON
+        if (!data) {
+            const response = await fetch('data_ncpi.json');
+            data = await response.json();
+            
+            // Salva os dados iniciais no localStorage
+            localStorage.setItem('dashboardData', JSON.stringify(data));
+        }
+        
+        // Atualiza a interface com os dados
         const metrics = calculateMetrics(data);
         updateMetricCards(metrics);
         updateStatusBars(metrics.metasPorStatus);
         renderInitiatives(data);
+    } catch (error) {
+        console.error('Erro ao inicializar o dashboard:', error);
+        alert('Erro ao carregar os dados. Por favor, recarregue a página.');
     }
 }
+
+// Adiciona um evento para limpar o localStorage quando necessário
+document.addEventListener('DOMContentLoaded', () => {
+    // Descomente a linha abaixo para limpar o localStorage e recarregar os dados do JSON
+    // localStorage.removeItem('dashboardData');
+    
+    initDashboard();
+});
