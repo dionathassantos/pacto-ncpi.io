@@ -297,44 +297,44 @@ body {
 
 .status-label .legend-icon.green {
     background-color: var(--green);
-    background-image: url('../icons/SVG/check-mark.svg');
+    background-image: url('check-mark.svg');
 }
 
 .status-label .legend-icon.blue {
     background-color: var(--blue);
-    background-image: url('../icons/SVG/thumbs-up.svg');
+    background-image: url('thumbs-up.svg');
 }
 
 .status-label .legend-icon.yellow {
     background-color: var(--yellow);
-    background-image: url('../icons/SVG/exclamation-triangle.svg');
+    background-image: url('exclamation-triangle.svg');
 }
 
 .status-label .legend-icon.red {
     background-color: var(--red);
-    background-image: url('../icons/SVG/Fire.svg');
+    background-image: url('Fire.svg');
 }
 
 .status-label .legend-icon.gray {
     background-color: var(--gray);
-    background-image: url('../icons/SVG/clipboard.svg');
+    background-image: url('clipboard.svg');
 }
 
 .status-tag {
     display: inline-flex;
     align-items: center;
-    padding: 1px 4px;
+    padding: 2px 6px;
     border-radius: 4px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--white);
     white-space: nowrap;
-    gap: 2px;
+    gap: 4px;
 }
 
 .status-tag .icon {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -346,7 +346,7 @@ body {
 }
 
 .status-tag.green .icon {
-    background-image: url('../icons/SVG/check-mark.svg');
+    background-image: url('check-mark.svg');
 }
 
 .status-tag.blue {
@@ -354,7 +354,7 @@ body {
 }
 
 .status-tag.blue .icon {
-    background-image: url('../icons/SVG/thumbs-up.svg');
+    background-image: url('thumbs-up.svg');
 }
 
 .status-tag.yellow {
@@ -363,7 +363,7 @@ body {
 }
 
 .status-tag.yellow .icon {
-    background-image: url('../icons/SVG/exclamation-triangle.svg');
+    background-image: url('exclamation-triangle.svg');
     filter: none;
 }
 
@@ -372,7 +372,7 @@ body {
 }
 
 .status-tag.red .icon {
-    background-image: url('../icons/SVG/Fire.svg');
+    background-image: url('Fire.svg');
 }
 
 .status-tag.gray {
@@ -380,7 +380,7 @@ body {
 }
 
 .status-tag.gray .icon {
-    background-image: url('../icons/SVG/clipboard.svg');
+    background-image: url('clipboard.svg');
 }
 
 .status-tag .count {
@@ -415,30 +415,24 @@ body {
 }
 
 .progress.green::after {
-    background-image: url('../icons/SVG/check-mark.svg');
+    background-image: url('check-mark.svg');
 }
 
 .progress.blue::after {
-    background-image: url('../icons/SVG/thumbs-up.svg');
+    background-image: url('thumbs-up.svg');
 }
 
 .progress.yellow::after {
-    background-image: url('../icons/SVG/exclamation-triangle.svg');
+    background-image: url('exclamation-triangle.svg');
 }
 
 .progress.red::after {
-    background-image: url('../icons/SVG/Fire.svg');
+    background-image: url('Fire.svg');
 }
 
 .progress.gray::after {
-    background-image: url('../icons/SVG/clipboard.svg');
+    background-image: url('clipboard.svg');
 }
-
-.progress.green { background: var(--green); }
-.progress.blue { background: var(--blue); }
-.progress.yellow { background: var(--yellow); }
-.progress.red { background: var(--red); }
-.progress.gray { background: var(--gray); }
 
 /* Initiatives Section */
 .initiatives {
@@ -698,15 +692,6 @@ body {
     position: relative;
 }
 
-.status-dot::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    position: absolute;
-    opacity: 0.2;
-}
-
 .status-dot::after {
     content: '';
     width: 16px;
@@ -714,7 +699,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    position: absolute;
+    filter: brightness(0) invert(1);
 }
 
 .status-dot.green {
@@ -722,7 +707,7 @@ body {
 }
 
 .status-dot.green::after {
-    background-image: url('../icons/SVG/check-mark.svg');
+    background-image: url('check-mark.svg');
 }
 
 .status-dot.blue {
@@ -730,7 +715,7 @@ body {
 }
 
 .status-dot.blue::after {
-    background-image: url('../icons/SVG/thumbs-up.svg');
+    background-image: url('thumbs-up.svg');
 }
 
 .status-dot.yellow {
@@ -738,7 +723,7 @@ body {
 }
 
 .status-dot.yellow::after {
-    background-image: url('../icons/SVG/exclamation-triangle.svg');
+    background-image: url('exclamation-triangle.svg');
 }
 
 .status-dot.red {
@@ -746,7 +731,7 @@ body {
 }
 
 .status-dot.red::after {
-    background-image: url('../icons/SVG/Fire.svg');
+    background-image: url('Fire.svg');
 }
 
 .status-dot.gray {
@@ -754,7 +739,7 @@ body {
 }
 
 .status-dot.gray::after {
-    background-image: url('../icons/SVG/clipboard.svg');
+    background-image: url('clipboard.svg');
 }
 
 /* Removing unused modal styles */
