@@ -399,18 +399,22 @@ function applyFilters(period) {
 }
 
 // Update metrics display
-function updateMetrics() {
-    // Update initiative count
-    document.querySelector('.metric-card:nth-child(1) .number').textContent = 
-        dashboardData.metrics.initiatives;
-    
-    // Update results count
-    document.querySelector('.metric-card:nth-child(2) .number').textContent = 
-        dashboardData.metrics.results;
-    
-    // Update goals count
-    document.querySelector('.metric-card:nth-child(3) .number').textContent = 
-        dashboardData.metrics.goals;
+function updateMetrics(data) {
+    const metrics = document.querySelector('.metrics');
+    metrics.innerHTML = `
+        <div class="metric-card blue">
+            <div class="metric-label">Iniciativas</div>
+            <div class="metric-value">${data.iniciativas || 0}</div>
+        </div>
+        <div class="metric-card orange">
+            <div class="metric-label">Resultados</div>
+            <div class="metric-value">${data.resultados || 0}</div>
+        </div>
+        <div class="metric-card purple">
+            <div class="metric-label">Metas</div>
+            <div class="metric-value">${data.metas || 0}</div>
+        </div>
+    `;
 }
 
 // Export functionality
@@ -546,31 +550,31 @@ function updateMetricCards(metrics) {
 
 // Função para atualizar as barras de status
 function updateStatusBars(metasPorStatus) {
-    const total = Object.values(metasPorStatus).reduce((a, b) => a + b, 0);
-    
-    // Atualizar números e porcentagens para cada status
-    const statusItems = document.querySelectorAll('.status-item');
-    
-    // Concluídas
-    updateStatusBar(statusItems[0], metasPorStatus.Concluída, total);
-    
-    // Satisfatório
-    updateStatusBar(statusItems[1], metasPorStatus.Satisfatório, total);
-    
-    // Alerta
-    updateStatusBar(statusItems[2], metasPorStatus.Alerta, total);
-    
-    // Crítico
-    updateStatusBar(statusItems[3], metasPorStatus.Crítico, total);
-    
-    // Não monitorado
-    updateStatusBar(statusItems[4], metasPorStatus["Não monitorado"], total);
-}
-
-function updateStatusBar(element, value, total) {
-    const percentage = (value / total) * 100;
-    element.querySelector('.status-label span:last-child').textContent = value;
-    element.querySelector('.progress').style.width = `${percentage}%`;
+    const statusBars = document.querySelector('.status-bars');
+    statusBars.innerHTML = `
+        <div class="status-cards">
+            <div class="status-card green">
+                <div class="status-card-value">${metasPorStatus.Concluída || 0}</div>
+                <div class="status-card-label">Concluídas</div>
+            </div>
+            <div class="status-card blue">
+                <div class="status-card-value">${metasPorStatus.Satisfatório || 0}</div>
+                <div class="status-card-label">Satisfatório</div>
+            </div>
+            <div class="status-card yellow">
+                <div class="status-card-value">${metasPorStatus.Alerta || 0}</div>
+                <div class="status-card-label">Alerta</div>
+            </div>
+            <div class="status-card red">
+                <div class="status-card-value">${metasPorStatus.Crítico || 0}</div>
+                <div class="status-card-label">Crítico</div>
+            </div>
+            <div class="status-card gray">
+                <div class="status-card-value">${metasPorStatus['Não monitorado'] || 0}</div>
+                <div class="status-card-label">Não monitorados</div>
+            </div>
+        </div>
+    `;
 }
 
 // Função para renderizar as iniciativas
@@ -649,7 +653,9 @@ function createInitiativeCard(iniciativa) {
             const colorClass = getStatusColor(status);
             return `
                 <div class="status-tag ${colorClass}">
-                    <span class="count">${metasPorStatus[status]}</span> ${status}
+                    <span class="icon"></span>
+                    ${status}
+                    <span class="count">${metasPorStatus[status]}</span>
                 </div>
             `;
         })
@@ -659,8 +665,10 @@ function createInitiativeCard(iniciativa) {
         <div class="initiative-header">
             <div class="initiative-header-content">
                 <div class="initiative-title">
-                    <h3>${iniciativa.Iniciativas}</h3>
-                    <p>${iniciativa["O que é"]}</p>
+                    <div class="initiative-title-content">
+                        <h3>${iniciativa.Iniciativas}</h3>
+                        <p title="${iniciativa["O que é"]}">${iniciativa["O que é"]}</p>
+                    </div>
                     <div class="progress-section">
                         <div class="progress-info">
                             <span>Alcance</span>
